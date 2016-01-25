@@ -6,7 +6,7 @@ nmcli radio wifi off
 rfkill unblock wlan
 
 # Setup interface address
-ifconfig wlan1 10.0.0.1/24 up
+ifconfig wlan0 10.0.0.1/24 up
 
 # Configure routing
 sysctl -w net.ipv4.ip_forward=1
@@ -20,7 +20,7 @@ dnsmasq -C dnsmasq.conf -H fakehosts.conf -d &
 if [ "$1" == "runserver" ]; then
 	hostapd ./hostapd.conf > hostapd.log &
 	echo "Starting webserver..."
-        gnome-terminal -x sh -c "ruby /usr/share/beef-xss/beef;bash"
+        gnome-terminal -x sh -c "cd /usr/share/beef-xss/;ruby beef;bash"
 	source fakesite/venv/bin/activate
 	python fakesite/fakesite.py
         	
