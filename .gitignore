@@ -1,6 +1,8 @@
 *~
-.swp
+*.swp
+*.log
 
 *.pyc
+
 
 fakesite/venv/
