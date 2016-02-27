@@ -12,7 +12,7 @@ ifconfig wlan0 10.0.0.1/24 up
 sysctl -w net.ipv4.ip_forward=1
 #Intercept HTTP Requests
 iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080
+#iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080
 
 iptables -P FORWARD ACCEPT
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
